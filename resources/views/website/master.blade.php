@@ -73,16 +73,11 @@
                     <div class="header_middle_inner">
                         <div class="search-container">
                             <form action="#">
-                                <div class="hover_category">
-                                    <select class="select_option" name="select" id="categori">
-                                        <option selected value="1">All Categories</option>
-                                            <option value="2">Accessories</option>
-                                    </select>
-                                </div>
                                 <div class="search_box">
-                                    <input placeholder="Search product..." type="text">
+                                    <input placeholder="Search product..." type="text" id="searchText">
                                     <button type="submit"><i class="zmdi zmdi-search"></i></button>
                                 </div>
+                                <div id="search_list"></div>
                             </form>
                         </div>
                         <div class="mini_cart_wrapper">
@@ -135,28 +130,6 @@
         <div class="container">
             <div class="row align-items-center">
 
-{{--                <div class="col-lg-3">--}}
-{{--                    <div class="categories_menu categorie_six">--}}
-{{--                        <div class="categories_title">--}}
-{{--                            <h2 class="categori_toggle">Categories</h2>--}}
-{{--                        </div>--}}
-{{--                        <div class="categories_menu_toggle">--}}
-{{--                            <ul>--}}
-{{--                                @foreach($categories as $category)--}}
-{{--                                <li class="menu_item_children categorie_list"><a href="{{route('product-category',['id'=>$category->id])}}"><span><i class="zmdi zmdi-desktop-mac"></i></span> {{$category->name}} <i class="fa fa-angle-right"></i></a>--}}
-{{--                                    <ul class="categories_mega_menu">--}}
-{{--                                        @foreach($category->subCategories as $subCategory)--}}
-{{--                                        <li class="menu_item_children "><a href="">{{$subCategory->name}}</a>--}}
-{{--                                        </li>--}}
-{{--                                        @endforeach--}}
-{{--                                    </ul>--}}
-{{--                                </li>--}}
-{{--                                @endforeach--}}
-{{--                            </ul>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
                 <div class="col-lg-3">
                     <div class="categories_menu categori_three">
                         <div class="categories_title">
@@ -189,56 +162,7 @@
 
                                 </li>
                                 <li class="mega_items"><a href=""><i class="zmdi zmdi-shopping-basket"></i> shop <i class="zmdi zmdi-caret-down"></i></a>
-                                    <div class="mega_menu">
-                                        <ul class="mega_menu_inner">
-                                            <li><a href="#">Shop Layouts</a>
-                                                <ul>
-                                                    <li><a href="shop-fullwidth.html">Full Width</a></li>
-                                                    <li><a href="shop-fullwidth-list.html">Full Width list</a></li>
-                                                    <li><a href="shop-right-sidebar.html">Right Sidebar </a></li>
-                                                    <li><a href="shop-right-sidebar-list.html"> Right Sidebar list</a></li>
-                                                    <li><a href="shop-list.html">List View</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">other Pages</a>
-                                                <ul>
-                                                    <li><a href="cart.html">cart</a></li>
-                                                    <li><a href="wishlist.html">Wishlist</a></li>
-                                                    <li><a href="checkout.html">Checkout</a></li>
-                                                    <li><a href="my-account.html">my account</a></li>
-                                                    <li><a href="404.html">Error 404</a></li>
-                                                </ul>
-                                            </li>
-                                            <li><a href="#">Product Types</a>
-                                                <ul>
-                                                    <li><a href="product-details.html">product details</a></li>
-                                                    <li><a href="product-sidebar.html">product sidebar</a></li>
-                                                    <li><a href="product-grouped.html">product grouped</a></li>
-                                                    <li><a href="variable-product.html">product variable</a></li>
 
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li><a href="blog.html"><i class="zmdi zmdi-collection-music"></i> blog <i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="sub_menu pages">
-                                        <li><a href="blog-details.html">blog details</a></li>
-                                        <li><a href="blog-fullwidth.html">blog fullwidth</a></li>
-                                        <li><a href="blog-sidebar.html">blog sidebar</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#"><i class="zmdi zmdi-star"></i> pages <i class="zmdi zmdi-caret-down"></i></a>
-                                    <ul class="sub_menu pages">
-                                        <li><a href="about.html">About Us</a></li>
-                                        <li><a href="services.html">services</a></li>
-                                        <li><a href="portfolio.html">portfolio</a></li>
-                                        <li><a href="faq.html">Frequently Questions</a></li>
-                                        <li><a href="contact.html">contact</a></li>
-                                        <li><a href="login.html">login</a></li>
-                                        <li><a href="wishlist.html">Wishlist</a></li>
-                                        <li><a href="404.html">Error 404</a></li>
-                                    </ul>
                                 </li>
 
                                 <li><a href="about.html"><i class="zmdi zmdi-comments"></i> about Us</a></li>
@@ -436,7 +360,7 @@
 
 
 <!-- modal area start-->
-<div class="modal fade" id="modal_box" tabindex="-1" role="dialog"  aria-hidden="true">
+<div class="modal fade" id="product_details" tabindex="-1" role="dialog"  aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
@@ -445,101 +369,72 @@
             <div class="modal_body">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-5 col-md-5 col-sm-12">
-                            <div class="modal_tab">
-                                <div class="tab-content product-details-large">
-                                    <div class="tab-pane fade show active" id="tab1" role="tabpanel" >
-                                        <div class="modal_tab_img">
-                                            <a href="#"><img src="{{asset('/')}}website/assets/img/product/product37.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="tab2" role="tabpanel">
-                                        <div class="modal_tab_img">
-                                            <a href="#"><img src="{{asset('/')}}website/assets/img/product/product24.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="tab3" role="tabpanel">
-                                        <div class="modal_tab_img">
-                                            <a href="#"><img src="{{asset('/')}}website/assets/img/product/product25.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="tab4" role="tabpanel">
-                                        <div class="modal_tab_img">
-                                            <a href="#"><img src="{{asset('/')}}website/assets/img/product/product22.jpg" alt=""></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal_tab_button">
-                                    <ul class="nav product_navactive owl-carousel" role="tablist">
-                                        <li >
-                                            <a class="nav-link active" data-bs-toggle="tab" href="#tab1" role="tab" aria-controls="tab1" aria-selected="false"><img src="{{asset('/')}}website/assets/img/product/productbig1.jpg" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" data-bs-toggle="tab" href="#tab2" role="tab" aria-controls="tab2" aria-selected="false"><img src="{{asset('/')}}website/assets/img/product/productbig2.jpg" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link button_three" data-bs-toggle="tab" href="#tab3" role="tab" aria-controls="tab3" aria-selected="false"><img src="{{asset('/')}}website/assets/img/product/productbig4.jpg" alt=""></a>
-                                        </li>
-                                        <li>
-                                            <a class="nav-link" data-bs-toggle="tab" href="#tab4" role="tab" aria-controls="tab4" aria-selected="false"><img src="{{asset('/')}}website/assets/img/product/productbig5.jpg" alt=""></a>
-                                        </li>
 
-                                    </ul>
+                        <div class="product_details mt-50 mb-50">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6">
+
+                                        <div class="xzoom-container">
+                                            <img class="xzoom4" id="xzoom-fancy" src="{{asset($product->image)}}" xoriginal="{{asset($product->image)}}" />
+                                            <div class="xzoom-thumbs">
+                                                <a href="{{asset($product->image)}}"><img class="xzoom-gallery4" width="80" src="{{asset($product->image)}}"  xpreview="{{asset($product->image)}}" title="The description goes here"></a>
+                                                @foreach($product->otherImages as $otherImage)
+                                                    <a href="{{asset($otherImage->image)}}"><img class="xzoom-gallery4" width="80" src="{{asset($otherImage->image)}}" title="The description goes here"></a>
+                                                @endforeach
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <div class="product_d_right">
+                                            <h1>{{$product->name}}</h1>
+                                            <div class="product_nav">
+                                                <ul>
+                                                    <li class="prev"><a href="product-details.html"><i class="fa fa-angle-left"></i></a></li>
+                                                    <li class="next"><a href="product-grouped.html"><i class="fa fa-angle-right"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div>
+                                                <ul>
+                                                    <li>Product Category : {{$product->category->name}}</li>
+                                                    <li>Product Sub Category : {{$product->subCategory->name}}</li>
+                                                    <li>Product Brand : {{$product->brand->name}}</li>
+                                                </ul>
+                                            </div>
+                                            <div class="product_rating">
+                                                <ul>
+                                                    <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
+                                                    <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
+                                                    <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
+                                                    <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
+                                                    <li><a href="#"><i class="zmdi zmdi-star-outline"></i></a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="price_box">
+                                                <span class="current_price">{{$product->selling_price}}</span>
+                                                <span class="old_price">{{$product->regular_price}}</span>
+
+                                            </div>
+                                            <div class="product_desc">
+                                                <p>{{$product->short_description}}</p>
+                                            </div>
+                                            <form action="{{route('cart.add',['id' => $product->id])}}" method="POST" >
+                                                @csrf
+                                                <div class="product_variant quantity">
+                                                    <label class="">Quantity :</label>
+                                                    <input class="" min="1" max="100" value="1" name="qty" type="number">
+                                                </div>
+                                                <div class="button cart-button">
+                                                    <button type="submit" style="width: 100%; padding-bottom: 10px;" class="btn">Add To Cart</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-7 col-md-7 col-sm-12">
-                            <div class="modal_right">
-                                <div class="modal_title mb-10">
-                                    <h2>Handbag feugiat</h2>
-                                </div>
-                                <div class="modal_price mb-10">
-                                    <span class="new_price">$64.99</span>
-                                    <span class="old_price" >$78.99</span>
-                                </div>
-                                <div class="modal_description mb-15">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia iste laborum ad impedit pariatur esse optio tempora sint ullam autem deleniti nam in quos qui nemo ipsum numquam, reiciendis maiores quidem aperiam, rerum vel recusandae </p>
-                                </div>
-                                <div class="variants_selects">
-                                    <div class="variants_size">
-                                        <h2>size</h2>
-                                        <select class="select_option">
-                                            <option selected value="1">s</option>
-                                            <option value="1">m</option>
-                                            <option value="1">l</option>
-                                            <option value="1">xl</option>
-                                            <option value="1">xxl</option>
-                                        </select>
-                                    </div>
-                                    <div class="variants_color">
-                                        <h2>color</h2>
-                                        <select class="select_option">
-                                            <option selected value="1">purple</option>
-                                            <option value="1">violet</option>
-                                            <option value="1">black</option>
-                                            <option value="1">pink</option>
-                                            <option value="1">orange</option>
-                                        </select>
-                                    </div>
-                                    <div class="modal_add_to_cart">
-                                        <form action="#">
-                                            <input min="0" max="100" step="2" value="1" type="number">
-                                            <button type="submit">add to cart</button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <div class="modal_social">
-                                    <h2>Share this product</h2>
-                                    <ul>
-                                        <li class="facebook"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li class="twitter"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        <li class="pinterest"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                                        <li class="google-plus"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                                        <li class="linkedin"><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -571,7 +466,20 @@
     });
 </script>
 
-
+<script>
+    $('#searchText').keyup(function () {
+        var value = $('#searchText').val();
+        $.ajax({
+           type: "GET",
+           url: "{{route('ajax-product-search')}}",
+           data:{value: value},
+            dataType: "JSON",
+            success: function (response) {
+                $('#search_list').html(response);
+            }
+        });
+    })
+</script>
 
 </body>
 

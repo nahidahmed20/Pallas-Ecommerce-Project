@@ -30,9 +30,12 @@ use App\Http\Controllers\UserController;
 */
 
 Route::get('/',[PallasController::class,'index'])->name('home');
+Route::get('/ajax-product-search',[PallasController::class,'ajaxSearch'])->name('ajax-product-search');
 Route::get('/product-category/{id}',[PallasController::class,'category'])->name('product-category');
 Route::get('/product-sub-category/{id}',[PallasController::class,'subCategory'])->name('product-sub-category');
 Route::get('/product-details/{id}',[PallasController::class,'product'])->name('product-details');
+
+
 
 Route::get('/cart/show',[CartController::class,'index'])->name('cart.show');
 Route::post('/cart-add/{id}',[CartController::class,'addToCart'])->name('cart.add');

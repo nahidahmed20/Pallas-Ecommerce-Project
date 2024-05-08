@@ -60,11 +60,13 @@
                                                         <a href="{{route('courier.edit',$courier->id)}}" class="btn btn-success">
                                                             <i class="uil uil-edit"></i>
                                                         </a>
-                                                        <form action="{{route('courier.destroy',$courier->id)}}" method="POST">
-                                                            @method('DELETE')
-                                                            @csrf
-                                                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete..')"><i class="uil uil-trash"></i></button>
-                                                        </form>
+                                                        <div class="d-flex">
+                                                            <form action="{{route('courier.destroy',$courier->id)}}" method="POST">
+                                                                @method('DELETE')
+                                                                @csrf
+                                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure to delete..')"><i class="uil uil-trash"></i></button>
+                                                            </form>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             @endforeach
